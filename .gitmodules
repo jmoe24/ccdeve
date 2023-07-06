@@ -1,0 +1,3 @@
+[submodule "pluralsight"]
+	path = pluralsight
+	url = git@github.com:nickrusso42518/pluralsight.git
