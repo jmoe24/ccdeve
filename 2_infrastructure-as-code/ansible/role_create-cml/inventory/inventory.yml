@@ -1,0 +1,11 @@
+---
+all:
+  hosts:
+    cisco-cml:
+      ansible_host: 192.168.86.56
+      ansible_user: "{{ lookup('env', 'CML_USERNAME') }}"
+      ansible_password: "{{ lookup('env', 'LAB_PASSWORD') }}"
+    lx1:
+      ansible_host: 192.168.86.50
+      ansible_user: "josh"
+      ansible_password: "{{ lookup('env', 'LAB_PASSWORD') }}"

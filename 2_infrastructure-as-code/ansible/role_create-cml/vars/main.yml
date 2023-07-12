@@ -1,0 +1,8 @@
+---
+# vars file for role_create-cml
+# first, make sure the username/password values are set as environment variables
+
+CML_USERNAME: "{{ lookup('env', 'CML_USERNAME') }}"
+CML_PASSWORD: "{{ lookup('env', 'CML_PASSWORD') }}"
+CML_HOST: "192.168.86.56"
+#CML_LAB: The name of the lab
