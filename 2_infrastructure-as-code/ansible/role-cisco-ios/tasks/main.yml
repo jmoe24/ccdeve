@@ -1,9 +1,0 @@
----
-# tasks file for role-cisco-ios
-- name: Gather Facts
-  hosts: cisco-ios
-  tasks:
-    cisco.ios.ios_facts:
-      gather_subset:
-        - config
-    

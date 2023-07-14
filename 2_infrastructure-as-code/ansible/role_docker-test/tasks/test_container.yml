@@ -1,0 +1,5 @@
+---
+# test containers
+- name: ping
+  hosts: containers
+  ping:

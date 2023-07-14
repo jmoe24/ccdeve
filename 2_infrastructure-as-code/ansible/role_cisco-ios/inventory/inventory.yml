@@ -3,7 +3,7 @@ all:
   hosts:
     cisco-ios:
       cat8000v:
-        ansible_host: 192.168.86.35
+        ansible_host: 192.168.86.21
     vars:
       ansible_user: "cisco"
       ansible_password: "cisco"
