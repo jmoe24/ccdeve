@@ -1,6 +1,0 @@
----
-- name: "task1"
-  hosts: cisco-ios
-  ansible_connection: network_cli
-  cisco.ios.ios_facts:
-    gather_subset: min

@@ -1,6 +1,0 @@
----
-all:
-  hosts:
-    containers:
-      c1:
-        ansible_connection: communiity.docker.docker
