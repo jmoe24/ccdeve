@@ -1,0 +1,14 @@
+---
+# simple playbook to ping linux host lx1
+# make sure VM is powered up first
+
+- hosts: linux
+
+  tasks:
+  - name: ping host
+    ping:
+    register: out
+
+  - name: print output
+    debug:
+      msg: "{{ out }}"  

@@ -1,0 +1,10 @@
+---
+all:
+  children:
+    containers:
+      hosts:
+        c1:
+    linux:
+      hosts:
+        lx1:
+          ansible_host: 192.168.86.50
