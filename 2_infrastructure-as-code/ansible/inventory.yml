@@ -8,3 +8,13 @@ all:
       hosts:
         lx1:
           ansible_host: 192.168.86.50
+    cml:
+      hosts:
+        192.168.86.56:
+          # user: admin
+          # password: xxxx
+          # validate-certs: False
+    ios-xe:
+      hosts:
+        cat8000v-1:
+          ansible_host: 192.168.86.251

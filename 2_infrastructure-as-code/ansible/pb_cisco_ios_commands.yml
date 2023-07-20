@@ -1,0 +1,10 @@
+# used to test the ansible ios_commands module
+---
+
+- hosts: ios-xe
+  gather_facts: no
+  
+  tasks:
+    - name: run show version on remote devices
+      ios_command:
+        commands: show version

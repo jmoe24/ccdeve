@@ -1,0 +1,17 @@
+# used to interact with cisco cml
+---
+
+- hosts: 192.168.86.56
+
+  tasks:
+  - name: Gather Facts
+    cisco.cml.cml_lab_facts:
+      host: 192.168.86.56
+      user: admin
+      password: xxxx
+      # lab: "{{ cml_lab }}"
+    register: cml_facts
+
+  - name: Print Output
+    debug:
+      var: cml_facts

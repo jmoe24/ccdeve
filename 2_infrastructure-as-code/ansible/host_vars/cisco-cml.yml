@@ -1,0 +1,5 @@
+---
+host: 192.168.86.56
+user: admin
+password: xxx
+validate-certs: False
