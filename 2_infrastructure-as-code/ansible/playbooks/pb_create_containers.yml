@@ -1,5 +1,0 @@
----
-- hosts: containers
-  tasks:
-  - name: ping container
-    ping:
