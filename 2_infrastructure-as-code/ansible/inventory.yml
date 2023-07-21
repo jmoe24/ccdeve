@@ -10,11 +10,12 @@ all:
           ansible_host: 192.168.86.50
     cml:
       hosts:
-        192.168.86.56:
+        cisco-cml:
+          ansible_host: 192.168.86.56
           # user: admin
           # password: xxxx
           # validate-certs: False
-    ios-xe:
+    iosxe:
       hosts:
         cat8000v-1:
           ansible_host: 192.168.86.251
