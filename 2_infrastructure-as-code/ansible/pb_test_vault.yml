@@ -1,0 +1,22 @@
+---
+# Used to verify I can retrieve a password from HashiCorp Vault
+
+- hosts: localhost
+  gather_facts: no
+
+  tasks: 
+  - name : Retrieve username from vault 
+    shell: "vault kv get -field=user secret/test"
+    register: vault_username
+
+  - name: Retrieve password from vault
+    shell: "vault kv get -field=password secret/test"
+    register: vault_password
+
+  - name: Display username
+    debug:
+      var: vault_username.stdout_lines
+
+  - name: Display password
+    debug:
+      var: vault_password.stdout_lines

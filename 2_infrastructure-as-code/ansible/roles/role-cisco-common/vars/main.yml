@@ -1,0 +1,16 @@
+---
+# vars file for role-cisco-common
+base:
+  hostname: "TEST_HOSTNAME"
+  location: "CCDevE Lab"
+ntp:
+  source: "Loopback1"
+  server1: 8.8.8.8
+  server2: 8.8.4.4
+snmp:
+  contact: "Josh"
+  test:
+    group_name: "TEST"
+    view_name: "testview"
+    secret: "secret1234"
+  

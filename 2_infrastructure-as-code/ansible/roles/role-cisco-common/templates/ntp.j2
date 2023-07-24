@@ -1,0 +1,6 @@
+!
+! ****** NTP ******
+ntp source {{ ntp.source }}
+ntp server {{ ntp.server1 }} prefer
+ntp server {{ ntp.server2 }}
+!

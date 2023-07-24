@@ -1,0 +1,27 @@
+# Configure Cisco IOS device using roles
+---
+
+- hosts: iosxe
+  gather_facts: no
+  
+  tasks:
+    # - name: "Gather IOS facts"
+    #   ios_facts:
+    #     gather_subset: interfaces
+    #   register: facts
+
+    # - name: "Show commands interfaces with role"
+    #   import_role:
+    #     name: "role-show-commands"
+
+    # - name: "Print sample-role show command output"
+    #   debug:
+    #     msg: "{{ show_command_output.stdout_lines }}" # show_command_output variable defined in show-command-basic/tasks/main.yml 
+
+    - name: "Configure some basic parameters (banner, ntp, snmp)"
+      import_role:
+        name: "role-cisco-common"
+
+    # - name: "Create interfaces with role"
+    #   import_role:
+    #     name: "role-create-loopbacks"
