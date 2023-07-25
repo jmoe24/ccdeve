@@ -4,53 +4,36 @@
   - name: "PRE-TASK: GATHER FACTS"
     ios_facts:
       gather_subset: interfaces
-    register: facts
+    register: gather_facts
 
   - name: "PRE-TASK: PRINT INTERFACES"
     debug:
-      var: facts['ansible_facts']['ansible_net_interfaces']
+      var: "{{ gather_facts.ansible_facts.ansible_net_interfaces }}"
     when: false
-  
-  - name: "PRE-TASK: DETERMINE IF NTP SOURCE INTERFACE EXISTS"
-    set_fact:
-      ntp_source_interface_exists: "{{ ntp.source is defined and ntp.source in facts['ansible_facts']['ansible_net_interfaces'] | map(attribute='name') | list }}"
-
-  - name: "PRINT EXISTENCE"
-    debug:
-      # var: "{{ ntp.source }}"
-      # var: facts['ansible_facts']['ansible_net_interfaces']
-      var: ntp_source_interface_exists
 
   - name: "ROLE TASK 1: CONFIGURE BANNER"
     cisco.ios.ios_banner:
       banner: login
       state: present
       text: "{{ lookup('template', 'banner.j2') }}"
-    when: "rollback_flag == False"  # defaults/main.yml rollback_flag is False by default
+    when: "rollback_flag == False"
 
   - name: "ROLE TASK 2: CONFIGURE SNMP"
     cisco.ios.ios_config:
       src: "snmp.j2"
-    when: "rollback_flag == False"  # defaults/main.yml rollback_flag is False by default
+    when: "rollback_flag == False"
 
   - name: "ROLE TASK 3: CONFIGURE NTP"
     cisco.ios.ios_ntp:
       server: "{{ ntp.server1 }}"
       source_int: "{{ ntp.source }}"
       state: present
-    when: "rollback_flag == False"  # defaults/main.yml rollback_flag is False by default
-    when: ntp_source_interface_exists | default(false)   # Default to false if the fact is not set or undefined
-
-  # - name: "ROLE TASK 1: CONFIGURE NTP"
-  #   ios_config:
-  #     src: "ntp.j2"
-  #   when: "rollback_flag == False"  # defaults/main.yml rollback_flag is False by default
+    when: ("rollback_flag == False") and (ntp.source in gather_facts.ansible_facts.ansible_net_interfaces)
 
   - name: "ROLE CLEANUP TASK 1: REMOVE BANNER"
     cisco.ios.ios_banner:
       banner: login
       state: absent
-      # text: "{{ lookup('template', 'banner.j2') }}"
     when: "rollback_flag == True"
 
   - name: "ROLE CLEANUP TASK 2: REMOVE SNMP"

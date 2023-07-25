@@ -1,0 +1,41 @@
+---
+# tasks file for role-create-loopbacks
+
+  # This task is an example of how to configure interfaces using the
+  # ios_config module and a jinja2 template of "interface-template.j2"
+  # - name: "ROLE TASK 1: CONFIGURE LOOPBACKS"
+  #   ios_config:
+  #     src: "interface-template.j2"
+  #   when: "rollback_flag == False"
+
+  # These tasks are an example of how to configure interfaces using the
+  # ios_interface module. 
+  - name: "ROLE TASK 1: CONFIGURE INTERFACES"
+    ios_interface:
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+      enabled: "{{ item.enabled }}"
+      state: present
+    loop: "{{ interfaces }}"
+    when: "rollback_flag == False"
+
+  - name: "ROLE TASK 2: CONFIGURE INTERFACES L3"
+    ios_l3_interface:
+      name: "{{ item.name }}"
+      ipv4: "{{ item.ipv4addr }}"
+    loop: "{{ interfaces }}"
+    when: "rollback_flag == False"
+
+  - name: "CLEANUP TASK 1: ROLL BACK INTERFACES L3"
+    ios_l3_interface:
+      name: "{{ item.name }}"
+      state: absent
+    loop: "{{ interfaces }}"
+    when: "rollback_flag == True"
+
+  - name: "CLEANUP TASK 2: ROLL BACK INTERFACES"
+    ios_interface:
+      name: "{{ item.name }}"
+      state: absent
+    loop: "{{ interfaces }}"
+    when: "rollback_flag == True"

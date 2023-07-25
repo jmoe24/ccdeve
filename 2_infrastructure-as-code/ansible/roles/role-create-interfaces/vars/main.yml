@@ -1,0 +1,28 @@
+---
+# vars file for role-create-loopbacks
+interfaces:
+  - name: "Loopback1337"
+    description: "This is a loopback configured by ansible"
+    enabled: true
+    ipv4addr: "192.168.124.100/32"
+  - name: "Loopback1338"
+    description: "This is a loopback configured by ansible"
+    enabled: true
+    ipv4addr: "192.168.124.101/32"
+  - name: "Loopback1339"
+    description: "This is a loopback configured by ansible"
+    enabled: true
+    ipv4addr: "192.168.124.102/32"
+  - name: "Loopback1340"
+    description: "This is a loopback configured by ansible"
+    enabled: true
+    ipv4addr: "192.168.124.103/32"
+  - name: "Loopback1341"
+    description: "This is a loopback configured by ansible"
+    enabled: true
+    ipv4addr: "192.168.124.104/32"
+  - name: "GigabitEthernet4"
+    description: "This is a loopback configured by ansible"
+    enabled: false
+    state: present
+    ipv4addr: "192.168.125.1/24"

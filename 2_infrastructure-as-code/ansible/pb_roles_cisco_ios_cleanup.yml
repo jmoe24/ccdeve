@@ -6,13 +6,13 @@
   
   tasks:
 
-    # - name: "Remove configurations with role"
-    #   import_role:
-    #     name: "role-create-loopbacks"
-    #   vars:
-    #     rollback_flag: True
+    - name: "REMOVE INTERFACE CONFIGURATIONS WITH ROLE"
+      import_role:
+        name: "role-create-interfaces"
+      vars:
+        rollback_flag: True
 
-    - name: "Remove basic configurations with role"
+    - name: "REMOVE BASIC CONFIGURATIONS WITH ROLE"
       import_role:
         name: "role-cisco-common"
       vars:
