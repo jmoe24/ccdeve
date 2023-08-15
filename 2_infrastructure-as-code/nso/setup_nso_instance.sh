@@ -15,7 +15,7 @@
 # Run this script in the directory where you ultimately want your output \
 # In my case, I want my jobs to live in my github repositories, NOT the NSO directory
 
-cd /home/expert/gitrepo/2_infrastructure-as-code/nso
+cd /home/expert/nso/nso6.1
 ncs-setup --package ~/nso/nso6.1/packages/neds/cisco-ios-cli-6.92 --dest $1
 printf "NSO Instance '$1' created in: $PWD/$1\n"
 
@@ -34,13 +34,15 @@ printf "NCS Started\n"
 # Print ncs status to ensure service is started
 ncs --status | grep status
 
-# After this, configure the authgroup and devices. Then sync-from devices and start other development
-ncs_cli -C -u admin
-!
-!
-config
-load merge ../nso-configs/nso-inventory.cfg
+# # After this, configure the authgroup and devices. Then sync-from devices and start other development
+# ncs_cli -C -u admin
+# !
+# config
+# load merge /home/expert/gitrepo/2_infrastructure-as-code/nso/nso-configs/nso-inventory.cfg
+# devices sync-from
 
+# Alternatively, you can enter the config manually instead of using the config file
+# ncs_cli -C -u admin
 # !
 # config
 # devices authgroups group cisco-cml default-map remote-name cisco remote-password cisco remote-secondary-password cisco
@@ -60,11 +62,10 @@ load merge ../nso-configs/nso-inventory.cfg
 # state admin-state unlocked
 # device-type cli protocol ssh
 # ssh host-key-verification none
-# exit
 # devices device-group cisco-cml
 # device-name cat8000v-0
 # device-name cat8000v-1
 # device-name cat8000v-2
-# exit
+# top
 # commit
 # exit

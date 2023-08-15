@@ -32,6 +32,16 @@ def get_config(device_name):
     with ncs.maapi.single_read_trans("cisco", "python", groups=['cisco-cml']) as t:
         root = ncs.maagic.get_root(t)
 
+def get_interface_details(device_name, interface_type, interface_number):
+    """
+    Gets IP address, description of an interface
+    """
+    with ncs.maapi.single_read_trans("cisco", "python", groups=['cisco-cml']) as t:
+        root = ncs.maagic.get_root(t)
+        ipaddr = root.devices.device[device_name].config.ios__interface[interface_type][interface_number].ip.address.primary.address
+        description = root.devices.device[device_name].config.ios__interface[interface_type][interface_number].description
+        return ipaddr, description
+
 def navigate_config(device_name):
     """
     Example of how to understand and navigate a devices config in the python API.
@@ -40,7 +50,7 @@ def navigate_config(device_name):
     with ncs.maapi.Maapi() as m:
         with ncs.maapi.Session(m, 'cisco', 'python', groups=['cisco-cml']):
             root = ncs.maagic.get_root(m)
-            device_config = root.devices.device['cat8000v-0'].config
+            device_config = root.devices.device[device_name].config
             print(dir(device_config))
             print(dir(device_config.ip))
             print(dir(device_config.ip.dhcp))
@@ -71,10 +81,12 @@ def show_commands(command, device_name):
             print(output)
 
 if __name__ == '__main__':
-    get_root()
+    # get_root()
     # get_device_groups()
     # print(get_devices())
-    # navigate_config()
+    # ipaddr, description = get_interface_details('cat8000v-0', 'GigabitEthernet', '1')
+    # print(f"IP Address: {ipaddr}, Description: {description}")
+    navigate_config('cat8000v-0')
     # for devices in get_devices():
     #     show_commands('ip int br', devices)
     # # device_list = get_devices()
