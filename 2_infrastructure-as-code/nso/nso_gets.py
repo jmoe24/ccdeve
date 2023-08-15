@@ -8,6 +8,9 @@ import ncs
 # https://github.com/NSO-developer/opa-example/blob/f46d16f4b40c92bc228bc8f61acac777731e88f6/packages/opa/python/opa/sub.py
 
 def get_root():
+    """
+    gets ncs root
+    """
     with ncs.maapi.single_read_trans("cisco", "python", groups=['cisco-cml']) as t:
         root = ncs.maagic.get_root(t)
         for node in root:
