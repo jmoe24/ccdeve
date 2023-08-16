@@ -1,3 +1,4 @@
+# user variable
 variable "user" {
   description = "Login information"
   type        = map
