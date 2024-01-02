@@ -10,6 +10,7 @@ services:
       - ./logs:/vault/logs
       - ./file:/vault/file
       - ./config:/vault/config
+      - ./config/certs:/vault/certs
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/vault.json
