@@ -12,5 +12,13 @@
       "path": "/vault/data"
     }
   },
+  "seal": {
+  "shamir": {
+    "shares": 1,
+    "threshold": 1,
+    "recovery_keys": 1,
+    "recovery_key": true
+    }
+  },
   "ui": true
 }
