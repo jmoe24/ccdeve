@@ -1,0 +1,9 @@
+---
+# tasks file for role_show_commands
+
+  - name: "ROLE TASK 1: SHOW COMMANDS"
+    ios_command:
+        commands:
+          - show ip interface brief
+          - show ip route
+    register: show_command_output

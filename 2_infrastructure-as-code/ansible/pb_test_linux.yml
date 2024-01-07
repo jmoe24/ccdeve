@@ -1,0 +1,24 @@
+---
+# simple playbook to ping linux host lx1
+# make sure VM is powered up first
+
+- hosts: linux
+
+  tasks:
+  - name: Get IP Information
+    debug:
+      # msg: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+      msg: "{{ hostvars[inventory_hostname]['ansible_default_ipv4'] }}"
+
+  - name: ping host
+    ping:
+    register: ping_out
+
+  - name: print ping output
+    debug:
+      # msg: "{{ ping_out }}"
+      var: ping_out
+
+  # - name: Display all variables/facts known for a host
+  #   ansible.builtin.debug:
+  #     var: hostvars[inventory_hostname]

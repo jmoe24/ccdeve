@@ -1,0 +1,19 @@
+# Cleanup Cisco IOS device using roles
+---
+
+- hosts: iosxe
+  gather_facts: no
+  
+  tasks:
+
+    - name: "REMOVE INTERFACE CONFIGURATIONS WITH ROLE"
+      import_role:
+        name: "role-create-interfaces"
+      vars:
+        rollback_flag: True
+
+    - name: "REMOVE BASIC CONFIGURATIONS WITH ROLE"
+      import_role:
+        name: "role-cisco-common"
+      vars:
+        rollback_flag: True

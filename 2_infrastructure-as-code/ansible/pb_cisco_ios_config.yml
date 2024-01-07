@@ -1,0 +1,35 @@
+# used to test the ansible ios_config module
+---
+
+- hosts: iosxe
+  gather_facts: no
+  
+  tasks:
+    - name: gather IOS facts
+      ios_facts:
+        gather_subset: min
+      register: facts
+
+    - name: run show interfaces on remote devices
+      ios_command:
+        commands: show running-config | section interface
+      register: showint
+    
+    # - name: print IOS facts
+    #   debug:
+    #     # var: facts['ansible_facts']['ansible_net_model']
+    #     msg: "Device Model Number: {{ facts['ansible_facts']['ansible_net_model'] }}"
+    
+    - name: show interfaces before change
+      debug:
+        var: showint.stdout_lines
+
+    - name: run show interfaces on remote devices
+      ios_command:
+        commands: show running-config | section interface
+      register: showint
+
+    - name: show interfaces after change
+      debug:
+        var: showint.stdout_lines  
+

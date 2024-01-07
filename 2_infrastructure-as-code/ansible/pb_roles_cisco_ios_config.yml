@@ -1,0 +1,19 @@
+# Configure Cisco IOS device using roles
+---
+
+- hosts: iosxe
+  gather_facts: no
+  
+  tasks:
+    # - name: "Gather IOS facts"
+    #   ios_facts:
+    #     gather_subset: interfaces
+    #   register: facts
+
+    - name: "Configure some basic parameters (banner, ntp, snmp) with role"
+      import_role:
+        name: "role-cisco-common"
+
+    - name: "Create interfaces with role"
+      import_role:
+        name: "role-create-loopbacks"

@@ -1,0 +1,27 @@
+# testing loops
+---
+
+- hosts: linux
+  gather_facts: yes
+  become: true
+
+  tasks:
+  - name: "ADD PACKAGES TO LINUX HOST"
+    apt:
+      pkg: "{{ item }}"
+      state: present
+    loop:
+      - nginx
+      - wireshark
+      - php
+    when: false
+
+  - name: REMOVE PACKAGES FROM LINUX HOST"
+    apt:
+      pkg: "{{ item }}"
+      state: absent
+    loop:
+      - nginx
+      - wireshark
+      - php
+    when: true

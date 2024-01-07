@@ -1,0 +1,10 @@
+no snmp-server group {{ snmp.test.group_name }} v3 priv read {{ snmp.test.view_name }}
+no snmp-server group {{ snmp.test.group_name }} v3 priv context vlan- match prefix read {{ snmp.test.view_name }}
+no snmp-server view wr iso included
+no snmp-server view {{ snmp.test.view_name }} iso included
+no snmp-server location {{ base.location }}
+no snmp-server contact {{ snmp.contact }}
+no snmp-server chassis-id {{ base.hostname }}
+!
+no snmp-server user snmp-test TEST v3 auth sha {{ snmp.test.secret }} priv aes 128 {{ snmp.test.secret }}
+!

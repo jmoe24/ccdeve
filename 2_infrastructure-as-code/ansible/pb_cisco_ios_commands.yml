@@ -1,0 +1,25 @@
+# used to test the ansible ios_commands module
+---
+
+- hosts: iosxe
+  gather_facts: no
+  
+  tasks:
+    - name: gather IOS facts
+      ios_facts:
+        # gather_subset: min
+      register: facts
+
+    - name: run show version on remote devices
+      ios_command:
+        commands: show version
+      register: showver
+    
+    - name: print IOS facts
+      debug:
+        var: facts['ansible_facts']
+        # msg: "Device Model Number: {{ facts['ansible_facts']['ansible_net_model'] }}"
+    
+    # - name: print show version
+    #   debug:
+    #     var: showver.stdout_lines

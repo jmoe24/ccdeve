@@ -1,0 +1,49 @@
+---
+# tasks file for role-cisco-common
+
+  - name: "PRE-TASK: GATHER FACTS"
+    ios_facts:
+      gather_subset: interfaces
+    register: gather_facts
+
+  - name: "PRE-TASK: PRINT INTERFACES"
+    debug:
+      var: "{{ gather_facts.ansible_facts.ansible_net_interfaces }}"
+    when: false
+
+  - name: "ROLE TASK 1: CONFIGURE BANNER"
+    cisco.ios.ios_banner:
+      banner: login
+      state: present
+      text: "{{ lookup('template', 'banner.j2') }}"
+    when: "rollback_flag == False"
+
+  - name: "ROLE TASK 2: CONFIGURE SNMP"
+    cisco.ios.ios_config:
+      src: "snmp.j2"
+    when: "rollback_flag == False"
+
+  - name: "ROLE TASK 3: CONFIGURE NTP"
+    cisco.ios.ios_ntp:
+      server: "{{ ntp.server1 }}"
+      source_int: "{{ ntp.source }}"
+      state: present
+    when: ("rollback_flag == False") and (ntp.source in gather_facts.ansible_facts.ansible_net_interfaces)
+
+  - name: "ROLE CLEANUP TASK 1: REMOVE BANNER"
+    cisco.ios.ios_banner:
+      banner: login
+      state: absent
+    when: "rollback_flag == True"
+
+  - name: "ROLE CLEANUP TASK 2: REMOVE SNMP"
+    cisco.ios.ios_config:
+      src: "remove_snmp.j2"
+    when: "rollback_flag == True"
+
+  - name: "ROLE CLEANUP TASK 3: REMOVE NTP"
+    cisco.ios.ios_ntp:
+      server: "{{ ntp.server1 }}"
+      source_int: "{{ ntp.source }}"
+      state: absent
+    when: "rollback_flag == True"
